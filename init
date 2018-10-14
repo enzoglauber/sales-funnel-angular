@@ -20,7 +20,4 @@ ng g c stages/stage-form
 ng g c stages/stage-list
 ng g c stages/stage-edit
 
-// USERS
-ng g m users
-ng g c users/login
-ng g c users/register
+ng g s shared/resources/opportunities
