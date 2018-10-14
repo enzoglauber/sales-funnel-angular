@@ -1,0 +1,88 @@
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600);
+
+body {
+    background-color: #E6E6E6;
+    font-family: 'Source Sans Pro';
+    font-size: 18px;
+  }
+  
+  .btn-add {
+    margin-top:20px;
+    margin-bottom:20px;
+    background-color: #417DE3;
+    border-bottom: 3px solid #2471A9;
+    img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 3px;
+    }
+    &:hover {
+      background-color: #1c5ed0;
+    }
+  }
+  
+  .card {
+    margin-bottom: 3px;
+    color: #6D6F76;
+    font-size: 14px;
+    -webkit-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.08);
+    .card-body, .card-header {
+      padding: 5px 10px;
+    }
+    &.header {
+      color:white;
+      border-radius: 0;
+      background-color: #6178A8;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      .card-body {
+        background-color: #556992;
+      }
+      .card-header{
+        font-size: 18px;
+      }
+      .card-header, .total {
+        font-style: italic;
+        font-weight: bold;
+      }
+      .total, .count {
+        font-size: 16px;
+        line-height: 26px;
+      }
+      &.stage-5 {
+        background-color: #53B55D;
+        .card-body {
+          background-color: #459D52;
+        }
+      }
+      &.stage-6 {
+        background-color: #B05658;
+        .card-body {
+          background-color: #904143;
+        }
+      }
+    }
+  
+    .title {
+      font-weight: bold;
+    }
+    .customer {
+      i {
+        font-size: 12px;
+        margin-right: 4px;
+      }
+    }
+  }
+  
+  .row {
+    margin-right: 0; 
+    margin-left: 0;
+    .col-sm-2, .col-12 {
+      padding-right: 2px;
+      padding-left: 2px;
+    }
+  }

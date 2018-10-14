@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary btn-add" (click)="toggleNewOpp(true)">  <img src="/assets/icon_button.png" alt="customer" />  Adicionar negócio</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-2" *ngFor="let stage of data">       
+        <div class="card header stage-{{stage.id}}">
+          <div class="card-header">
+            {{stage.name}}
+          </div>
+          <div class="card-body">
+            <div class="clearfix">
+              <span class="total">R$ 15.000,00</span>
+              <span class="count float-right">2 negócios</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card" *ngIf="newOpp && stage.id == 1">
+          <div class="card-body">
+
+            <form [formGroup]="form" (ngSubmit)="save()" class="stage-edit" novalidate>
+                <input type="hidden" formControlName="id" name="id">
+
+                <div class="title" contenteditable="true"  formControlName="name">
+                  
+                </div>{{opportunity.title}}
+            </form>
+          
+          </div>
+        </div>
+
+        <div class="card" *ngFor="let opportunity of stage.opportunities">
+          <div class="card-body">
+            <div class="clearfix">
+              <div class="title">
+                {{opportunity.title}}
+              </div>
+              <div class="customer">
+                <i class="fas fa-building"></i> {{opportunity.customer}}
+              </div>
+              <div class="value float-right text-success">
+                {{opportunity.value}}
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>   
