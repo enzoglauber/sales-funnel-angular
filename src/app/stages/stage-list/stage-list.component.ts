@@ -37,7 +37,7 @@ export class StageListComponent implements OnInit {
 
   ngOnInit() {
     this.list();
-    
+
     // add
     this.form.valueChanges.subscribe(data => {
       this.save();      
