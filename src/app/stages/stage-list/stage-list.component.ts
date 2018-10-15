@@ -1,8 +1,9 @@
 import {  Component, ViewEncapsulation, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { StageService } from '../../shared/resources/stage.service';
+import { OpportunityService } from '../../shared/resources/opportunity.service';
 
-import { FormGroup, FormControl, Validators}
-  from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 import { _ } from "underscore";
@@ -24,45 +25,80 @@ export class StageListComponent implements OnInit {
   @Output() pristine = new EventEmitter<any>();  
   form: FormGroup;
 
+
   constructor(
     private StageService: StageService,
+    private OpportunityService: OpportunityService,
+    private toastr: ToastrService
   ) { 
     //add
     this.form = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl(null, [Validators.required] ),
-      // description: new FormControl()
+      title: new FormControl('', [Validators.required] ),
+      value: new FormControl(''),
+      customer: new FormControl(''),
+      stage_id: new FormControl(1),
+      // stage: new FormGroup({
+      //   id: new FormControl(1)
+      // }),
+
     }, { updateOn: 'blur' });
   }
 
   ngOnInit() {
     this.list();
+  }
 
-    // add
-    this.form.valueChanges.subscribe(data => {
-      this.save();      
+  change($event) {
+    // console.log($event.item.initData.id);
+    let id = $event.item.initData.id;
+    let params = {stage_id: ($event.overZoneIndex + 1)};
+    setTimeout(() => {
+      this.OpportunityService.update(id, params).subscribe(data => {
+        this.toastr.success('Negócio atualizado com sucesso!', 'Sucesso!');
+      }, error => {
+        console.log(error);
+        this.toastr.error('Não é possivel alterar um negócio ganho!', 'Warning!');
+        setTimeout(() => {   
+          location.reload();
+        }, 200);  
+      });
+    }, 700);  
+  }
+
+  sum(opportunities) {    
+    let sum = _.reduce(opportunities, function (memo, opportunity) { 
+      return memo + (parseFloat (opportunity.value) || 0); 
+    }, 0);
+    return sum;
+  }
+
+  destroy(id) {
+    this.OpportunityService.destroy(id).subscribe(data => {
+      this.list();
+    }, error => {
+      console.log('Problem in Opportinity creation', 8000, 'red');
     });
   }
 
-  //add
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (!changes.entity.firstChange) {
-      this.form.setValue(_.omit(changes.entity.currentValue, 'user_id', 'created_at', 'updated_at'));
-    }
+  reset() {
+    this.form.reset();
+    this.toggleNewOpp(false);
+    this.form.patchValue({ stage_id: '1' });
   }
 
-  save() {    
+  save() {
+    console.log('legal', this.form)
     if (!this.form.pristine) {
-      if (this.entity.id) {
-        this.StageService.update(this.entity.id, this.form.value).subscribe(data => {
-          this.pristine.emit(data);
-          this.entity = data;
-          // this.ToastService.show('Task updated', 8000, 'green');
-        }, error => {
-         console.log('Problem in Task creation', 8000, 'red');
-        });
-      }
+      this.OpportunityService.create(this.form.value).subscribe(data => {
+        this.pristine.emit(data);
+        this.entity = data;
+        this.toastr.success('Negócio salvo com sucesso!', 'Sucesso!');
+        this.list();
+        this.reset();
+        // this.ToastService.show('Task updated', 8000, 'green');
+      }, error => { 
+        console.log('Problem in Opportinity creation', 8000, 'red');
+      });
     }
   }
 

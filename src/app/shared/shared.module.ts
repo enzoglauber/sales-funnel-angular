@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormDebugComponent } from './form-debug/form-debug.component';
 
 import { CoreService } from './resources/core.service';
-import { CustomerService } from './resources/customer.service';
 import { StageService } from './resources/stage.service';
 import { OpportunityService } from './resources/opportunity.service';
 
@@ -13,6 +12,6 @@ import { OpportunityService } from './resources/opportunity.service';
   ],
   declarations: [FormDebugComponent],
   exports: [FormDebugComponent],
-  providers: [CoreService, CustomerService, StageService, OpportunityService], 
+  providers: [CoreService, StageService, OpportunityService], 
 })
 export class SharedModule { }

@@ -1,54 +1,80 @@
 <div class="container-fluid">
-  
+  <ng-template #itemTemplate let-item="item" let-index="index"> 
+    <div class="card-body">
+      <div class="clearfix">
+        <div class="title">
+          {{item.initData.title}}
+    
+          <!-- <button type="button" class="float-right btn btn-outline-danger btn-sm" (click)="destroy(item.initData.id)">
+                  <i class="fa fa-times"></i></button> -->
+    
+        </div>
+        <div class="customer">
+          <i class="fa fa-building"></i> {{item.initData.customer}}
+        </div>
+    
+    
+        <div class="value float-right text-success">
+          {{item.initData.value | currency:'BRL':true}}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
   <div class="row">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-add" (click)="toggleNewOpp(true)">  <img src="/assets/icon_button.png" alt="customer" />  Adicionar negócio</button>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-sm-2" *ngFor="let stage of data">       
-        <div class="card header stage-{{stage.id}}">
-          <div class="card-header">
-            {{stage.name}}
-          </div>
-          <div class="card-body">
-            <div class="clearfix">
-              <span class="total">R$ 15.000,00</span>
-              <span class="count float-right">2 negócios</span>
-            </div>
-          </div>
+      <div class="card header stage-{{stage.id}}">
+        <div class="card-header">
+          {{stage.name}}
         </div>
-        
-        <div class="card" *ngIf="newOpp && stage.id == 1">
-          <div class="card-body">
-
-            <form [formGroup]="form" (ngSubmit)="save()" class="stage-edit" novalidate>
-                <input type="hidden" formControlName="id" name="id">
-
-                <div class="title" contenteditable="true"  formControlName="name">
-                  
-                </div>{{opportunity.title}}
-            </form>
-          
-          </div>
-        </div>
-
-        <div class="card" *ngFor="let opportunity of stage.opportunities">
-          <div class="card-body">
-            <div class="clearfix">
-              <div class="title">
-                {{opportunity.title}}
-              </div>
-              <div class="customer">
-                <i class="fas fa-building"></i> {{opportunity.customer}}
-              </div>
-              <div class="value float-right text-success">
-                {{opportunity.value}}
-              </div>              
-            </div>
+        <div class="card-body">
+          <div class="clearfix">
+            <span class="total">{{sum(stage.opportunities) | currency:'BRL':true}}</span>
+            <span class="count float-right">
+              {{stage.opportunities.length}} negócio{{(stage.opportunities.length > 1)?'s':''}}   
+            </span>
           </div>
         </div>
       </div>
+      
+      <div class="card new-opp" *ngIf="newOpp && stage.id == 1">
+        <div class="card-body">
+
+          <form [formGroup]="form" (ngSubmit)="save()" class="stage-edit" novalidate>
+          
+            <input id="title" formControlName="title" placeholder="Titulo do negócio">
+            
+            <div>
+              <i class="fa fa-building"></i> <input id="customer" formControlName="customer" placeholder="Nome do cliente">              
+            </div>
+            
+            <input id="value" formControlName="value" placeholder="R$">             
+            <input type="hidden" id="stage_id" formControlName="stage_id">
+            <!-- <div formGroupName="stage">
+              <input type="hidden" id="id" formControlName="id">
+            </div> -->
+          </form>
+          <span class="control-buttons">
+            <button (click)="save()">
+              <img src="/assets/icon_ok.png"/>
+            </button>
+            <button (click)="reset()">
+              <img src="/assets/icon_remove.png" />
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <bs-sortable [(ngModel)]="stage.opportunities" fieldName="name" itemClass="card" [itemTemplate]="itemTemplate"
+        itemActiveClass="sortable-item-active" placeholderItem="" placeholderClass="sortable-item"
+        (onDropItem)="change($event)"
+        wrapperClass="sortable-wrapper"></bs-sortable>
+    </div>
   </div>
 </div>   
