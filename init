@@ -20,4 +20,7 @@ ng g c stages/stage-form
 ng g c stages/stage-list
 ng g c stages/stage-edit
 
+ng g m opportunities
+ng g c opportunities/opportunity-button-add
+
 ng g s shared/resources/opportunities

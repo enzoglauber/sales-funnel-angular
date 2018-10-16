@@ -18,11 +18,8 @@ import { _ } from "underscore";
 export class StageListComponent implements OnInit {
   //list
   private data: Array<any> = [];
-  private newOpp: Boolean = false;
-
+  inOpen: Boolean;
   //add
-  @Input() entity:any;
-  @Output() pristine = new EventEmitter<any>();  
   form: FormGroup;
 
 
@@ -90,8 +87,6 @@ export class StageListComponent implements OnInit {
     console.log('legal', this.form)
     if (!this.form.pristine) {
       this.OpportunityService.create(this.form.value).subscribe(data => {
-        this.pristine.emit(data);
-        this.entity = data;
         this.toastr.success('Negócio salvo com sucesso!', 'Sucesso!');
         this.list();
         this.reset();
@@ -103,7 +98,7 @@ export class StageListComponent implements OnInit {
   }
 
   toggleNewOpp(open) {
-    this.newOpp = open;
+    this.inOpen = open;
   }
 
   list() {

@@ -6,9 +6,11 @@ import { ContenteditableDirective } from 'ng-contenteditable';
 import { SortableModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 
+import { OpportunitiesModule } from '../opportunities/opportunities.module';
+
 @NgModule({
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, SortableModule.forRoot(), AlertModule.forRoot()
+    CommonModule, FormsModule, ReactiveFormsModule, SortableModule.forRoot(), AlertModule.forRoot(), OpportunitiesModule
   ],
   declarations: [StageListComponent, ContenteditableDirective]
 })

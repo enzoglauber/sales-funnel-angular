@@ -7,6 +7,7 @@ import { routing } from './app.routing';
 
 import { SharedModule } from './shared/shared.module';
 import { StagesModule } from './stages/stages.module';
+import { OpportunitiesModule } from './opportunities/opportunities.module';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpModule,
     SharedModule,
     StagesModule,
+    OpportunitiesModule,
     routing,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
