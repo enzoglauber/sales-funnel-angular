@@ -1,0 +1,21 @@
+<div class="card-body">
+  <form [formGroup]="form" (ngSubmit)="save()" class="stage-edit" novalidate>
+    <input id="title" formControlName="title" placeholder="Titulo do negócio">
+    <div>
+      <i class="fa fa-building"></i> <input id="customer" formControlName="customer" placeholder="Nome do cliente">
+    </div>
+    <input id="value" formControlName="value" placeholder="R$">
+    <input type="hidden" id="stage_id" formControlName="stage_id">
+    <!-- <div formGroupName="stage">
+              <input type="hidden" id="id" formControlName="id">
+            </div> -->
+  </form>
+  <span class="control-buttons">
+    <button (click)="save()">
+      <img src="/assets/icon_ok.png" />
+    </button>
+    <button (click)="reset()">
+      <img src="/assets/icon_remove.png" />
+    </button>
+  </span>
+</div>

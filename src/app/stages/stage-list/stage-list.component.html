@@ -39,7 +39,9 @@
         </div>
       </div>
       
-      <div class="card new-opp" *ngIf="inOpen && stage.id == 1">
+      <app-opportunity-new  *ngIf="inOpen && stage.id == 1"></app-opportunity-new>
+
+      <div *ngIf="inOpen && stage.id == 1">
         <div class="card-body">
           <form [formGroup]="form" (ngSubmit)="save()" class="stage-edit" novalidate>          
             <input id="title" formControlName="title" placeholder="Titulo do negócio">            
