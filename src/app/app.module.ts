@@ -13,7 +13,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Angular2TokenService } from 'angular2-token';
 import { ToastrModule } from 'ngx-toastr';
+import { storeLogger } from 'ngrx-store-logger';
 
+import { StoreModule, ActionReducer  } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { StageReducer } from './stages/stage.reducer';
+import { PageReducer } from './shared/page.reducer';
+
+
+export function logger(PageReducer: ActionReducer<any>): any {
+  return storeLogger()(PageReducer);
+}
+
+export const metaReducers = environment.production ? [] : [logger];
 
 @NgModule({
   declarations: [
@@ -28,7 +40,11 @@ import { ToastrModule } from 'ngx-toastr';
     OpportunitiesModule,
     routing,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreModule.forRoot({
+      stage: StageReducer,
+      page: PageReducer
+    },{ metaReducers })
   ],
   providers: [Angular2TokenService],
   bootstrap: [AppComponent]

@@ -21,7 +21,7 @@
     </div>
   </ng-template>
 
-  <app-opportunity-button-add [(inOpen)]="inOpen"></app-opportunity-button-add>
+  <app-opportunity-button-add></app-opportunity-button-add>
 
   <div class="row">
     <div class="col-sm-2" *ngFor="let stage of data">       
@@ -39,7 +39,7 @@
         </div>
       </div>
       
-      <app-opportunity-new  *ngIf="inOpen && stage.id == 1"></app-opportunity-new>
+      <app-opportunity-new></app-opportunity-new>
 
       <div *ngIf="inOpen && stage.id == 1">
         <div class="card-body">
