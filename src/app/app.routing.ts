@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 // import { Angular2TokenService } from 'angular2-token';
 // 
 
-import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import { StageListComponent } from './stages/stage-list/stage-list.component';
 
 const appRoutes: Routes = [
